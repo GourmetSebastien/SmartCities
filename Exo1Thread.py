@@ -37,12 +37,17 @@ def toggle_led(state):
     else:
         return None
 
-while True:
-    with state_lock:
-        delay = toggle_led(state)
+try:
+    while True:
+        with state_lock:
+            delay = toggle_led(state)
 
-    if delay is not None:
-        led.toggle()
-        utime.sleep(delay) 
-    else:
-        led.value(0) 
+        if delay is not None:
+            led.toggle()
+            utime.sleep(delay) 
+        else:
+            led.value(0) 
+
+except KeyboardInterrupt:
+    print("Program is stopped")
+    led.value(0)
