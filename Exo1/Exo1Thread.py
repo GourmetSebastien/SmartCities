@@ -3,8 +3,8 @@ import utime
 import _thread 
 
 # Configuration des pins
-led = Pin(16, Pin.OUT)  
-button = Pin(18, Pin.IN, Pin.PULL_DOWN) 
+led = Pin(18, Pin.OUT)  
+button = Pin(16, Pin.IN, Pin.PULL_DOWN) 
 
 # Variables partagées entre les threads
 state = 0  
