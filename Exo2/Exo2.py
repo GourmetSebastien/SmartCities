@@ -1,10 +1,23 @@
-from machine import Pin, PWM
+from machine import Pin, PWM, ADC
 from time import sleep
+import _thread
 
 buzzer = PWM(Pin(27))
-vol = 1000
+sensor = ADC(0)
 
-# Définitions des notes (avec fréquence en Hz)
+vol = 1000
+running = True
+
+def volume():
+    global running, vol
+
+    while running:
+        vol = sensor.read_u16()
+        buzzer.duty_u16(vol)
+        sleep(0.1)
+
+
+#region Note musique
 def DO(tmp):
     buzzer.freq(523)  # C4
     buzzer.duty_u16(vol)
@@ -49,9 +62,10 @@ def N(tmp):
     buzzer.duty_u16(0)
     sleep(tmp)
 
-# Mélodie du thème de Tetris
-while True:
-    # Première partie
+#endregion
+
+#region Musique
+def Tetris():
     DO(0.4)
     SO(0.4)
     LA(0.4)
@@ -60,7 +74,6 @@ while True:
     SO(0.4)
     N(0.4)
 
-    # Deuxième partie
     DO(0.4)
     SO(0.4)
     LA(0.4)
@@ -69,7 +82,6 @@ while True:
     SO(0.4)
     N(0.4)
 
-    # Troisième partie
     DO(0.4)
     RE(0.4)
     MI(0.4)
@@ -78,7 +90,6 @@ while True:
     RE(0.4)
     N(0.4)
 
-    # Quatrième partie
     DO(0.4)
     RE(0.4)
     MI(0.4)
@@ -87,5 +98,20 @@ while True:
     RE(0.4)
     N(0.4)
 
-    # Pause entre chaque cycle
     N(0.5)
+#endregion
+
+_thread.start_new_thread(volume,())
+
+try:
+    while running:  
+        Tetris()
+
+except KeyboardInterrupt:
+    print("Program stopped")
+
+finally:
+    running = False
+    sleep(0.5)
+
+
