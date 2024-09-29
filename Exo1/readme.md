@@ -4,9 +4,9 @@
 
  Écrire un programme en MicroPython qui fait clignoter une LED à des vitesses variées, en fonction du nombre de fois où l'on appuie sur un bouton poussoir.
 
-## Diagramme de séquence
+# Diagramme de séquence du contrôle de la LED
 
-    Acteurs principaux :
+Acteurs principaux :
         - Utilisateur : Appuie sur le bouton poussoir pour changer la vitesse de clignotement.
 
         - Thread principal : Gère le clignotement de la LED selon l'état.
@@ -15,12 +15,10 @@
 
         - LED : Clignote à des vitesses différentes selon la valeur de l'état.
 
-# Diagramme de séquence du contrôle de la LED
-
 ```mermaid
 sequenceDiagram
     participant B as Utilisateur
-    participant T as Thread de Surveillance
+    participant T as Thread secondaire
     participant L as LED
     participant M as Boucle Principale
 
