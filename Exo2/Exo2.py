@@ -1,60 +1,52 @@
-from machine import Pin, PWM, ADC
+from machine import Pin, PWM, ADC, Timer
 from time import sleep
 import _thread
 
 buzzer = PWM(Pin(27))
 sensor = ADC(0)
+button = Pin(16,Pin.PULL_DOWN)
 
 vol = 1000
 running = True
 
-def volume():
-    global running, vol
-
-    while running:
-        vol = sensor.read_u16()
-        buzzer.duty_u16(vol)
-        sleep(0.1)
-
-
 #region Note musique
 def DO(tmp):
-    buzzer.freq(523)  # C4
+    buzzer.freq(1046) 
     buzzer.duty_u16(vol)
     sleep(tmp)
 
 def RE(tmp):
-    buzzer.freq(587)  # D4
+    buzzer.freq(1175) 
     buzzer.duty_u16(vol)
     sleep(tmp)
 
 def MI(tmp):
-    buzzer.freq(659)  # E4
+    buzzer.freq(1318) 
     buzzer.duty_u16(vol)
     sleep(tmp)
 
 def FA(tmp):
-    buzzer.freq(698)  # F4
+    buzzer.freq(1397)  
     buzzer.duty_u16(vol)
     sleep(tmp)
 
 def SO(tmp):
-    buzzer.freq(784)  # G4
+    buzzer.freq(1568)  
     buzzer.duty_u16(vol)
     sleep(tmp)
 
 def LA(tmp):
-    buzzer.freq(880)  # A4
+    buzzer.freq(1760) 
     buzzer.duty_u16(vol)
     sleep(tmp)
 
 def SI(tmp):
-    buzzer.freq(988)  # B4
+    buzzer.freq(1967)  
     buzzer.duty_u16(vol)
     sleep(tmp)
 
-def DOH(tmp):  # C5
-    buzzer.freq(1046)
+def DO5(tmp):
+    buzzer.freq(2093)
     buzzer.duty_u16(vol)
     sleep(tmp)
 
@@ -65,53 +57,69 @@ def N(tmp):
 #endregion
 
 #region Musique
-def Tetris():
-    DO(0.4)
-    SO(0.4)
-    LA(0.4)
-    DOH(0.4)
-    LA(0.4)
-    SO(0.4)
-    N(0.4)
+def Mario():
+    DO(0.25)
+    RE(0.25)
+    MI(0.25)
+    DO(0.25)
+    N(0.01)
 
-    DO(0.4)
-    SO(0.4)
-    LA(0.4)
-    DOH(0.4)
-    LA(0.4)
-    SO(0.4)
-    N(0.4)
+    DO(0.25)
+    RE(0.25)
+    MI(0.25)
+    DO(0.25)
 
-    DO(0.4)
-    RE(0.4)
-    MI(0.4)
-    FA(0.4)
-    MI(0.4)
-    RE(0.4)
-    N(0.4)
+    MI(0.25)
+    FA(0.25)
+    SO(0.5)
 
-    DO(0.4)
-    RE(0.4)
-    MI(0.4)
-    FA(0.4)
-    MI(0.4)
-    RE(0.4)
-    N(0.4)
+    MI(0.25)
+    FA(0.25)
+    SO(0.5)
+    N(0.01)
 
-    N(0.5)
+    SO(0.125)
+    LA(0.125)
+    SO(0.125)
+    FA(0.125)
+    MI(0.25)
+    DO(0.25)
+
+    SO(0.125)
+    LA(0.125)
+    SO(0.125)
+    FA(0.125)
+    MI(0.25)
+    DO(0.25)
+
+    RE(0.25)
+    SO(0.25)
+    DO(0.5)
+
+    N(0.01)
+    
 #endregion
 
+def volume():
+    global running, vol
+
+    while running:
+        vol = sensor.read_u16()
+        buzzer.duty_u16(vol)
+        sleep(0.1)
 _thread.start_new_thread(volume,())
 
 try:
-    while running:  
-        Tetris()
+    while running: 
+        Mario()
+
+        sleep(2)
 
 except KeyboardInterrupt:
     print("Program stopped")
 
 finally:
     running = False
+    buzzer.duty_u16(0)
     sleep(0.5)
-
 
