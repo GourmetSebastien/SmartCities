@@ -16,33 +16,29 @@ LED = PWM(Pin(20))
 Pot = ADC(0) #Max 65535 Min 352
 
 temp_consigne = 0
-current_temp = 0
+temp_actu = 0
 running = True
 a = 0.003068
 
-def CalculPot(x):
+def ConversionTemp(x):
     return a*x+15
 
 def VerifTemp():
-    global current_temp
+    global temp_consigne
 
-    current_temp = dht.readTemperature()
-    d.setCursor(0,1)
-    d.print("Ambient :" + str(current_temp))
-
-    if current_temp > temp_consigne:
-        LED.freq(2000)
+    temp_actu = dht.readTemperature()
+    if temp_actu > temp_consigne:
         LED.duty_u16(65535)
+        while temp_actu > temp_consigne + 3:
+            buzzer.freq(1000)
+            buzzer.duty_u16(1000)
+            d.clear()
+            d.print("ALARM")
+            temp_consigne = ConversionTemp(Pot.read_u16())
+            sleep_ms(250)
+        buzzer.duty_u16(0)
     else:
         LED.duty_u16(0)
-    
-    if current_temp + 3 > temp_consigne:
-        buzzer.freq(1000)
-        #buzzer.duty_u16(1000)
-        d.clear()
-        d.print("ALARM")
-    else:
-        buzzer.duty_u16(0)
 
     sleep(1)
 
@@ -53,7 +49,8 @@ try:
         d.clear()
         d.setCursor(0,0)
         d.print("Set : " + str(temp_consigne))
-        temp_consigne = Pot.read_u16()
+        d.print("Ambient")
+        temp_consigne = ConversionTemp(Pot.read_u16())
         sleep(1)
 
 except KeyboardInterrupt:
