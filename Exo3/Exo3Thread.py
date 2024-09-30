@@ -6,6 +6,7 @@ import _thread
 
 i2c = I2C(1, scl=Pin(7), sda=Pin(6), freq=400000)
 d = LCD1602(i2c, 2, 16)
+d.display()
 
 dht = DHT(18)
 
