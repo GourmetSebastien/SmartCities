@@ -2,7 +2,11 @@
 
 ## Environnement de développement
 
-![alt text](image-1.png)
+<div style="text-align: center;">
+  <img src="image-1.png" alt="Description de l'image">
+</div>
+
+
 Afin de réaliser ce projet, j'ai utilisé Visual Studio Code comme environnement de développement. Il s'agit d'un éditeur de code morderne largement utilisé pour sa flexibilité et son efficacité.
 Point fort:
 
