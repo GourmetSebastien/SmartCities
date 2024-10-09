@@ -9,6 +9,7 @@
 - Raspberry Pi Pico
 - LED
 - Bouton poussoir
+- Cable
 
 ## Principe
 
@@ -22,7 +23,7 @@ Un phénomène de rebond peut apparaître lors de l'utilisation de ceux-ci. Ce p
 
 ![alt text](SchemaExo1.png)
 
-# Diagramme de séquence du contrôle de la LED
+## Diagramme de séquence du contrôle de la LED
 
 **Acteurs principaux** :
 
@@ -61,7 +62,7 @@ sequenceDiagram
     M->>T: Boucle jusqu'à l'arrêt
 ```
 
-# Diagramme de flux
+## Diagramme de flux
 
 ```mermaid
 flowchart TD
