@@ -36,23 +36,24 @@ flowchart TD
     G --> H[Démarrer la Boucle Principale]
     
     subgraph Thread pincipale
-    H --> I{En Cours d'Exécution}
+    H --> I{En cours d'éxécution?}
     I --> |Oui| J[Jouer la Séquence Frère Jacques]
     J --> K[Attendre 2 Secondes]
     K --> I
-    I --> |Non : Interruption Clavier| L[Arrêter le Programme]
+
     end
 
     subgraph Thread
     E --> M[Exécuter le Thread de Contrôle du Volume]
-    M --> N{Contrôle du Volume en Cours}
+    M --> N{En cours d'éxécution?}
     N --> |Oui| O[Lire le Volume depuis le Capteur]
     O --> P[Mettre à Jour le Cycle de Service du Buzzer]
     P --> N
-    N --> |Non| Q[Arrêter le Thread de Contrôle du Volume]
-    end
     
-    L --> Q
+    end
+
+    I --non --> Q
+    N --> |Non| Q[Arrêter le programme]
     Q --> R[Éteindre le Buzzer]
     R --> S[Fin du Programme]
 

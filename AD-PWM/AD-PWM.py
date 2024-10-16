@@ -106,6 +106,7 @@ def volume():
         vol = sensor.read_u16()
         buzzer.duty_u16(vol)
         sleep(0.1)
+        
 _thread.start_new_thread(volume,())
 
 try:
