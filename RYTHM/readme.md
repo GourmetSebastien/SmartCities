@@ -25,23 +25,15 @@ flowchart TD
     D --> E[Démarrer le thread de capteur]
     E --> F{En cours d'exécution ?}
     
-    F -- Oui --> G[Lire le bruit du capteur]
-    G --> H[Calculer la moyenne du bruit]
-    H --> I[Imprimer la moyenne]
-    I --> F
-    
-    F -- Non --> J[Arrêter le programme]
-    
     subgraph Thread de Capteur
         F1{En cours d'exécution ?}
         F1 -- Oui --> K[Lire le bruit du capteur]
         K --> L[Calculer la moyenne]
         L --> I1[Imprimer la moyenne]
         I1 --> F1
-        F1 -- Non --> J
     end
 
-    F --> F1
+    F -- oui --> F1
 
     subgraph Boucle Principale
         F2{Moyenne > Ancienne + Seuil ?}
@@ -55,5 +47,8 @@ flowchart TD
         Q --> F2
     end
 
-    F --> F2
-```
+    F -- oui --> F2
+    F1 -- Non --> J
+    F -- Non --> J[Arrêter le programme]
+
+````

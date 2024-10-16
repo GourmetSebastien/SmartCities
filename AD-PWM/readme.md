@@ -30,23 +30,27 @@ flowchart TD
     A[Début du Programme] --> B[Initialiser le Buzzer PWM sur Pin 27]
     B --> C[Initialiser le Capteur ADC sur ADC 0]
     C --> D[Définir le volume initial à 1000]
-    D --> E[Démarrer le Thread pour le Contrôle du Volume]
-    E --> F[Définir les Fonctions des Notes Musicales]
+    D --> F[Définir les Fonctions des Notes Musicales]
     F --> G[Définir la Séquence Musicale : Frère Jacques]
+    G --> E[Démarrer le Thread pour le Contrôle du Volume]
     G --> H[Démarrer la Boucle Principale]
     
+    subgraph Thread pincipale
     H --> I{En Cours d'Exécution}
     I --> |Oui| J[Jouer la Séquence Frère Jacques]
     J --> K[Attendre 2 Secondes]
     K --> I
     I --> |Non : Interruption Clavier| L[Arrêter le Programme]
-    
+    end
+
+    subgraph Thread
     E --> M[Exécuter le Thread de Contrôle du Volume]
     M --> N{Contrôle du Volume en Cours}
     N --> |Oui| O[Lire le Volume depuis le Capteur]
     O --> P[Mettre à Jour le Cycle de Service du Buzzer]
     P --> N
     N --> |Non| Q[Arrêter le Thread de Contrôle du Volume]
+    end
     
     L --> Q
     Q --> R[Éteindre le Buzzer]
