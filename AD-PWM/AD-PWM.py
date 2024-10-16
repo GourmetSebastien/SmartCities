@@ -4,7 +4,6 @@ import _thread
 
 buzzer = PWM(Pin(27))
 sensor = ADC(0)
-button = Pin(16,Pin.PULL_DOWN)
 
 vol = 1000
 running = True
@@ -57,7 +56,7 @@ def N(tmp):
 #endregion
 
 #region Musique
-def Mario():
+def Frere():
     DO(0.25)
     RE(0.25)
     MI(0.25)
@@ -111,8 +110,7 @@ _thread.start_new_thread(volume,())
 
 try:
     while running: 
-        Mario()
-
+        Frere()
         sleep(2)
 
 except KeyboardInterrupt:

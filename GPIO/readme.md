@@ -1,4 +1,4 @@
-# Exo 1
+# GPIO
 
 ## Objectif
 

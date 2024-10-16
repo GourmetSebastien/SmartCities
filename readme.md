@@ -39,3 +39,4 @@ MicroPython est une version allégée du langage de programmation Python, conçu
 [GPIO](GPIO)<br>
 [AD-PWM](AD-PWM)<br>
 [LCD](LCD)<br>
+[RYTHM](RYTHM)<br>
